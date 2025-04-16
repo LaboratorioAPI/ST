@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Veja seu IP</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    .ip-box {
+      margin-top: 20px;
+      font-size: 1.2em;
+    }
+  </style>
+</head>
+<body>
+  <h1>Veja seu IP Público</h1>
+  <div class="ip-box" id="ipv4">IPv4: buscando...</div>
+  <div class="ip-box" id="ipv6">IPv6: buscando...</div>
+
+  <script>
+    async function buscarIPs() {
+      try {
+        const res = await fetch('https://api64.ipify.org?format=json');
+        const data = await res.json();
+        document.getElementById('ipv6').innerText = "IPv6: " + data.ip;
+      } catch (e) {
+        document.getElementById('ipv6').innerText = "IPv6: não encontrado";
+      }
+
+      try {
+        const res = await fetch('https://api.ipify.org?format=json');
+        const data = await res.json();
+        document.getElementById('ipv4').innerText = "IPv4: " + data.ip;
+      } catch (e) {
+        document.getElementById('ipv4').innerText = "IPv4: não encontrado";
+      }
+    }
+
+    buscarIPs();
+  </script>
+</body>
+</html>
